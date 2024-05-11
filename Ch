@@ -1,5 +1,2 @@
 #!/usr/bin/python3
-from sys import argv
-def h(s): [print(f"{c} U+{hex(ord(c))[2:]:>04}") for c in s]
-if len(argv)>1: [h(s) for s in argv[1:]]
-else: h(input(f"{argv[0].split('/')[-1]} $ "))
+from sys import argv;print(*[hex(ord(c))[2:] for c in ' '.join(argv[1:])])

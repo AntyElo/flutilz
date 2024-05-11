@@ -1,0 +1,48 @@
+#!/bin/bash
+
+#for i in {0..255} ; do
+#    printf "\x1b[48;5;${i}m%3d\e[0m " "$i"
+#    if   (( i == 7 )); then
+#        printf "\n";
+#    elif (( i == 15 )); then
+#        printf "\n\n"
+#    elif (( i > 15 )) && (( (i+21) % 36 == 0 )); then
+#        printf "\n\n"
+#    elif (( i > 15 )) && (( (i+3) % 6 == 0 )); then
+#        printf "\n";
+#    fi
+#done
+
+echo "First 16 colors, 0 to 15"
+for i in {0..15} ; do
+    if (( (i+1) % 8 == 0)) || (( i > 8 )); then
+        #printf "\e[30m\x1b[48;5;${i}m[%3d]\e[0m" "$i";
+        echo -en "\e[30m\x1b[48;5;${i}m  "
+    else
+        #printf "\x1b[48;5;${i}m[%3d]\e[0m" "$i";
+        echo -en "\x1b[48;5;${i}m  "
+    fi
+    if (( (i+1) % 8 == 0)); then
+        echo -e "\e[0m"
+    fi
+done; echo
+
+echo "RGB cube 6x6x6 (one square = tuple of 0..36 +k)"
+for i in {0..5} ; do
+    for j in {0..5} ; do
+        for k in {0..5} ; do
+            K=$(( i * 6 + j * 36 + k + 16 ))
+            #printf "\x1b[48;5;${K}m[%3d]\e[0m" "$K";
+            echo -en "\x1b[48;5;${K}m  "
+        done
+        echo -en "\e[0m "
+    done
+    echo
+done; echo
+
+echo "Gray, 232 to 255"
+for i in {232..255} ; do #..243 244..
+    #printf "\e[37m\x1b[48;5;${i}m[%3d]\e[0m" "$i";
+    echo -en "\e[37m\x1b[48;5;${i}m  ";
+    #if (( (i+3) % 6 == 0)); then echo -n " "; fi
+done; echo -e "\e[0m"

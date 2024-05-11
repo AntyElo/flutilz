@@ -1,0 +1,4 @@
+#!/usr/bin/env python3
+from sys import argv;q="'";Q='"'
+try: print(*[chr(int(i,16)) for i in argv[1:]], sep='')
+except ValueError as E: print(f"Error: {E.__reduce__()[1][0].split(': ')[1].replace(q,Q)} is pretty sus")

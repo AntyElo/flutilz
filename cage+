@@ -1,0 +1,16 @@
+#!/usr/bin/bash
+CAGEE=`which cage`
+test -z "$CAGEE" && { printf "cage: not found (install it!)\n"; exit 1; }
+test -z "$LOG1" -o "$LOG1" = 0 && LOG1=" 1>/dev/null" || LOG1=""
+test -z "$LOG2" -o "$LOG2" = 0 && LOG2=" 2>/dev/null" || LOG2=""
+test -z "$TIP" && TIP=1
+
+# LOG=1 override LOG1=0, LOG2=0, TIP=1
+test -z "$LOG" -o "$LOG" = 0 || { LOG1=""; LOG2=""; TIP=0; }
+
+for e in $@; do P="$P $e"; done; P=${P/ /}
+P="env GTK_MODULES=${GTK_MODULES/appmenu-gtk-module/} GDK_BACKEND=wayland \
+QT_QPA_PLATFORM=wayland SDL_VIDEODRIVER=wayland CLUTTER_BACKEND=wayland \
+$CAGEE -- $P$LOG1$LOG2 &"
+test "$TIP" = 1 && printf "[cage+] $P\n[cage+] Note: try LOG LOG1 LOG2 TIP vars\n"
+bash -c "$P"

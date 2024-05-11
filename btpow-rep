@@ -1,0 +1,9 @@
+#!/bin/sh
+if [ -z "$SLOW" ];then SLOW=60; fi
+if [ -z "$1" ]; then TAIL_N=""; else TAIL_N="-n $1"; fi
+while true; do
+    /bin/echo -e "\n-- tailed journalctl @"`date +%H:%M:%S`
+    journalctl -e -b --user-unit pulseaudio -g "Battery Level" -o cat\
+    | tail $TAIL_N
+    sleep $SLOW
+done;

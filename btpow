@@ -1,0 +1,2 @@
+#!/bin/sh
+journalctl -e -S "5 minute ago" --user-unit pulseaudio -g "Battery Level" -o cat | tail -n 1 | sed "s/Battery Level: //g"

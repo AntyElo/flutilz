@@ -1,0 +1,15 @@
+#!/bin/bash
+for f in {0..1} ; do
+    for i in {0..7} ; do i=$(($i+8*$f)); n=$((15-$i))
+      printf "\x1b[38;5;${n}m\x1b[48;5;${i}m  " "$i"; done; printf "\e[0m" #s/  /%2d/g
+    case $f in
+    0) printf " --- -  Colour banchmark  - --- " ;;
+    1) printf "<base16    6x6x6 cube    gray24>" ;;
+    esac
+    for i in {0..11} ; do i=$(($i+232+12*$f)); n=$((487-$i))
+      printf "\x1b[38;5;${n}m\x1b[48;5;${i}m  \e[0m" "$i"; done; printf "\e[0m" #s/  /%2d/g
+    echo
+done #; echo
+for i in {0..5}; do for j in {0..5}; do for k in {0..5}; do k=$(($k+16+36*$j+6*$i))
+    printf "\x1b[48;5;${k}m  " "$k" #s/  /%2d/g
+done; echo -en "\e[0m"; done; echo; done

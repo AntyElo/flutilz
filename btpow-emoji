@@ -1,0 +1,40 @@
+#!/usr/bin/bash
+validate_int() {
+	local INT=$1
+	if [ -z "$INT" -o "$INT" == 0 ]
+	then printf 0; return
+	else printf 1
+	fi
+}
+setdefault() {
+	if [ -n "$1" ]
+	then printf -- "$1"; return
+	else printf -- "$2"
+	fi
+}
+PRINT_NOPOW=`setdefault "$PRINT_NOPOW" --`
+POW=`setdefault "$(btpow | sed s/%//g)" "$PRINT_NOPOW"`
+#  ${VAR/$OLD/$NEW} == echo $VAR | sed "s/$OLD/$NEW/"
+# ${VAR//$OLD/$NEW} == echo $VAR | sed "s/$OLD/$NEW/g"
+PRINT_BATTERY=`setdefault "$PRINT_BATTERY" `
+PRINT_CTO=`setdefault "$PRINT_CTO" 1`
+PRINT_WHEN_UNSET=`setdefault "$PRINT_WHEN_UNSET" `
+PRINT_WHEN_UNSET=`validate_int "$PRINT_WHEN_UNSET"`
+PRINT_L=`setdefault "$PRINT_L" 🎧`
+PRINT_R=`setdefault "$PRINT_R" `
+if [ "$POW" != "$PRINT_NOPOW" -o "$PRINT_WHEN_UNSET" == 1 ]; then
+	printf "$PRINT_L"
+	if [ -n "$PRINT_BATTERY" ]; then printf " "
+		case $POW in
+			[0-9]|1[0-5]) printf ;;
+			100|9[0-9]|8[6-9]) printf  ;;
+			8[0-5]|7[0-9]|6[1-9]) printf  ;;
+			60|5[0-9]|4[1-9]) printf ;;
+			40|3[0-9]|2[0-9]|1[6-9]) printf ;;
+			*) printf ;;
+		esac
+	fi
+	if [ -n "$PRINT_CTO" ]; then printf " $POW%%"; fi
+	printf "$PRINT_R"
+fi
+printf "\n"

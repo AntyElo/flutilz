@@ -1,7 +1,7 @@
 #!/bin/sh
 fg() { tput setaf $1; }
 bg() { tput setaf $1; }
-s()  { tput sgr0; };
+s()  { tput sgr0; }
 
 cat <<EOF
 Avaible utils:

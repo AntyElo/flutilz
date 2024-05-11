@@ -1,9 +1,5 @@
 #!/usr/bin/python3
 from sys import argv
-def hexinate(s):
-	for c in s:
-		print(f"{c} U+{hex(ord(c))[2:]:>04}")
-if len(argv)>1:
-	for s in argv[1:]:
-		hexinate(s)
-else: hexinate(input(f"{argv[0].split('/')[-1]} $ "))
+def h(s): [print(f"{c} U+{hex(ord(c))[2:]:>04}") for c in s]
+if len(argv)>1: [h(s) for s in argv[1:]]
+else: h(input(f"{argv[0].split('/')[-1]} $ "))

@@ -1,0 +1,5 @@
+#!/usr/bin/bash
+KITTEN=`which fbgrab`
+test -z "$KITTEN" && { printf "fbgrab: not found (install it!)\n"; exit 1; }
+test -z "$FRAMEBUFFER" && FRAMEBUFFER="/dev/fb0"
+fbgrab -d $FRAMEBUFFER $HOME/`basename $FRAMEBUFFER`.png

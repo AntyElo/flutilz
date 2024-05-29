@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 CAGEE=`which cage`
-test -z "$CAGEE" && { printf "cage: not found (install it!)\n"; exit 1; }
+test -z "$CAGEE" && { printf "which cage: not found (install it!)\n"; exit 1; }
 test -z "$LOG1" -o "$LOG1" = 0 && LOG1=" 1>/dev/null" || LOG1=""
 test -z "$LOG2" -o "$LOG2" = 0 && LOG2=" 2>/dev/null" || LOG2=""
 test -z "$TIP" && TIP=1

@@ -1,7 +1,7 @@
 #!/bin/bash
 function [f() { tput setaf $1; }
 function [b() { tput setaf $1; }
-function c]()  { tput sgr0; }
+function c]() { tput sgr0; }
 
 cat <<EOF
 Avaible utils:
